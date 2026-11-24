@@ -62,7 +62,7 @@ export default function Home() {
 
       {/* Hero Section */}
       <section
-        className="relative flex min-h-[420px] items-center bg-cover bg-center sm:min-h-[460px] md:min-h-[500px]"
+        className="relative flex min-h-[340px] items-center bg-cover bg-center sm:min-h-[380px] md:min-h-[420px]"
         style={{
           backgroundImage:
             "linear-gradient(90deg, rgba(9,35,73,0.98) 0%, rgba(9,35,73,0.88) 50%, rgba(9,35,73,0.35) 100%), url('https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=1800&q=85')",
@@ -71,7 +71,7 @@ export default function Home() {
         <div className="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
           <div className="max-w-xl text-white">
 
-            <h2 className="text-3xl font-extrabold leading-tight sm:text-4xl md:text-5xl">
+            <h2 className="text-xl font-extrabold leading-tight sm:text-2xl md:text-3xl">
               Build Your Future with
               <br className="hidden sm:block" />
               The <span className="text-yellow-400">Right Guidance</span>

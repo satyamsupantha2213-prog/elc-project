@@ -53,11 +53,13 @@ const hsc27Schedule = [
     },
 ];
 
+
+
+
 const ScheduleTable = ({ title, schedule }) => {
     return (
-        <section className="mb-10">
+        <section className="mb-12">
 
-            {/* Section Heading */}
             <div className="mb-5 flex items-center justify-center gap-4 sm:gap-6">
                 <div className="h-0.5 w-12 bg-blue-600 sm:w-24 md:w-36"></div>
 
@@ -68,34 +70,17 @@ const ScheduleTable = ({ title, schedule }) => {
                 <div className="h-0.5 w-12 bg-blue-600 sm:w-24 md:w-36"></div>
             </div>
 
-            {/* Schedule Table */}
             <div className="overflow-hidden rounded-xl border border-blue-100 shadow-sm">
-
                 <div className="overflow-x-auto">
                     <table className="w-full min-w-[550px] text-center">
 
                         <thead className="bg-[#102b52] text-white">
                             <tr>
-                                <th className="px-4 py-4 font-bold">
-                                    <span className="flex items-center justify-center gap-2">
-                                        <span className="text-xl">▦</span>
-                                        Days
-                                    </span>
+                                <th className="px-4 py-4">Days</th>
+                                <th className="border-x border-blue-200/30 px-4 py-4">
+                                    Batch
                                 </th>
-
-                                <th className="border-x border-blue-200/30 px-4 py-4 font-bold">
-                                    <span className="flex items-center justify-center gap-2">
-                                        <span className="text-xl">♟</span>
-                                        Batch
-                                    </span>
-                                </th>
-
-                                <th className="px-4 py-4 font-bold">
-                                    <span className="flex items-center justify-center gap-2">
-                                        <span className="text-xl">◷</span>
-                                        Time
-                                    </span>
-                                </th>
+                                <th className="px-4 py-4">Class Time</th>
                             </tr>
                         </thead>
 
@@ -103,14 +88,20 @@ const ScheduleTable = ({ title, schedule }) => {
                             {schedule.map((item, index) => (
                                 <tr
                                     key={index}
-                                    className={`transition hover:bg-blue-100 ${index % 2 === 0 ? "bg-white" : "bg-blue-50"
-                                        }`}
+                                    className={`transition hover:bg-blue-100 ${
+                                        index % 2 === 0 ? "bg-white" : "bg-blue-50"
+                                    }`}
                                 >
-                                    <td className="px-4 py-3 text-sm font-medium sm:text-base">
-                                        {item.days}
+                                    <td className="px-4 py-3 text-sm font-semibold sm:text-base">
+                                        {item.days.split(", ").map((day, i) => (
+                                            <React.Fragment key={day}>
+                                                {i > 0 && <br />}
+                                                {day}
+                                            </React.Fragment>
+                                        ))}
                                     </td>
 
-                                    <td className="border-x border-blue-100 px-4 py-3 text-sm font-bold sm:text-base">
+                                    <td className="border-x border-blue-100 px-4 py-3 font-bold">
                                         {item.batch}
                                     </td>
 
@@ -123,11 +114,13 @@ const ScheduleTable = ({ title, schedule }) => {
 
                     </table>
                 </div>
-
             </div>
         </section>
     );
 };
+
+
+
 
 export default function ClassSchedule() {
     return (
