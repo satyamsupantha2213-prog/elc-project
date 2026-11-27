@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState } from "react";
@@ -6,10 +7,12 @@ import Link from "next/link";
 const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
     const [contactOpen, setContactOpen] = useState(false);
+    const [classesOpen, setClassesOpen] = useState(false);
 
     const closeMenu = () => {
         setMenuOpen(false);
         setContactOpen(false);
+        setClassesOpen(false);
     };
 
     return (
@@ -20,7 +23,7 @@ const Navbar = () => {
                 <Link href="/" className="flex items-center" onClick={closeMenu}>
                     <img
                         src="/elc.png"
-                        alt="Home"
+                        alt="Equation Learning Center"
                         className="h-14 w-auto object-contain sm:h-16"
                     />
                 </Link>
@@ -28,31 +31,67 @@ const Navbar = () => {
                 {/* Desktop Navigation Links */}
                 <nav className="hidden items-center gap-7 font-semibold lg:flex">
 
-                    <Link href="/" className="text-blue-600 transition hover:text-blue-800">
-                        Home
-                    </Link>
+                    {/* Classes Dropdown */}
+                    <div className="group relative">
+                        <button
+                            type="button"
+                            className="flex items-center gap-1 py-2 text-blue-600 transition hover:text-blue-800"
+                        >
+                            Classes
+                            <span className="text-xs transition-transform duration-200 group-hover:rotate-180">
+                                ▼
+                            </span>
+                        </button>
 
-                    <Link href="/Classes" className="text-blue-600 transition hover:text-blue-800">
-                        Classes
-                    </Link>
+                        <div className="invisible absolute left-0 top-full z-50 w-52 translate-y-2 rounded-xl border border-gray-100 bg-white p-2 opacity-0 shadow-lg transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
 
-                    <Link href="/Class-Schedule" className="text-blue-600 transition hover:text-blue-800">
+                            <Link
+                                href="/Live-classes"
+                                className="block rounded-lg px-4 py-3 text-gray-700 transition hover:bg-blue-50 hover:text-blue-600"
+                            >
+                                Live Classes
+                            </Link>
+
+                            <Link
+                                href="/Recorded-classes"
+                                className="block rounded-lg px-4 py-3 text-gray-700 transition hover:bg-blue-50 hover:text-blue-600"
+                            >
+                                Recorded Classes
+                            </Link>
+
+                        </div>
+                    </div>
+
+                    {/* Class Schedule */}
+                    <Link
+                        href="/Class-Schedule"
+                        className="text-blue-600 transition hover:text-blue-800"
+                    >
                         Class-Schedule
                     </Link>
 
-                    <Link href="/About-Us" className="text-blue-600 transition hover:text-blue-800">
+                    {/* About Us */}
+                    <Link
+                        href="/About-Us"
+                        className="text-blue-600 transition hover:text-blue-800"
+                    >
                         About Us
                     </Link>
 
                     {/* Contact Dropdown */}
                     <div className="group relative">
 
-                        <button className="flex items-center gap-1 py-2 text-blue-600 transition hover:text-blue-800">
+                        <button
+                            type="button"
+                            className="flex items-center gap-1 py-2 text-blue-600 transition hover:text-blue-800"
+                        >
                             Contact
-                            <span className="text-xs">▼</span>
+                            <span className="text-xs transition-transform duration-200 group-hover:rotate-180">
+                                ▼
+                            </span>
                         </button>
 
-                        <div className="invisible absolute left-0 top-full w-56 translate-y-2 rounded-xl border border-gray-100 bg-white p-2 opacity-0 shadow-lg transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
+                        <div className="invisible absolute left-0 top-full z-50 w-56 translate-y-2 rounded-xl border border-gray-100 bg-white p-2 opacity-0 shadow-lg transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
 
                             {/* Email */}
                             <a
@@ -96,16 +135,17 @@ const Navbar = () => {
 
                 </nav>
 
-                {/* Desktop Enroll Button */}
+                {/* Desktop Login Button */}
                 <Link
-                    href="/Contact"
+                    href="/Progress"
                     className="hidden rounded-full bg-blue-600 px-6 py-3 text-sm font-bold text-white transition hover:bg-blue-800 lg:block"
                 >
-                    Enroll Now →
+                    Login
                 </Link>
 
                 {/* Mobile Menu Button */}
                 <button
+                    type="button"
                     onClick={() => setMenuOpen(!menuOpen)}
                     className="flex h-10 w-10 items-center justify-center rounded-lg text-3xl text-[#10264b] transition hover:bg-blue-50 lg:hidden"
                     aria-label="Toggle navigation menu"
@@ -122,26 +162,65 @@ const Navbar = () => {
 
                     <div className="flex flex-col gap-4 font-semibold">
 
-                        <Link href="/" onClick={closeMenu} className="text-blue-600 transition hover:text-blue-800">
-                            Home
-                        </Link>
-
-                        <Link href="/Classes" onClick={closeMenu} className="text-blue-600 transition hover:text-blue-800">
+                        {/* Mobile Classes Dropdown */}
+                        <button
+                            type="button"
+                            onClick={() => setClassesOpen(!classesOpen)}
+                            className="flex items-center justify-between text-left text-blue-600 transition hover:text-blue-800"
+                            aria-expanded={classesOpen}
+                        >
                             Classes
-                        </Link>
+                            <span className="text-xs">
+                                {classesOpen ? "▲" : "▼"}
+                            </span>
+                        </button>
 
-                        <Link href="/Class-Schedule" onClick={closeMenu} className="text-blue-600 transition hover:text-blue-800">
+                        {classesOpen && (
+                            <div className="ml-3 flex flex-col gap-3 border-l-2 border-blue-100 pl-4">
+
+                                <Link
+                                    href="/Live-classes"
+                                    onClick={closeMenu}
+                                    className="py-2 text-gray-700 transition hover:text-blue-600"
+                                >
+                                    Live Classes
+                                </Link>
+
+                                <Link
+                                    href="/Recorded-classes"
+                                    onClick={closeMenu}
+                                    className="py-2 text-gray-700 transition hover:text-blue-600"
+                                >
+                                    Recorded Classes
+                                </Link>
+
+                            </div>
+                        )}
+
+                        {/* Class Schedule */}
+                        <Link
+                            href="/Class-Schedule"
+                            onClick={closeMenu}
+                            className="text-blue-600 transition hover:text-blue-800"
+                        >
                             Class-Schedule
                         </Link>
 
-                        <Link href="/About-Us" onClick={closeMenu} className="text-blue-600 transition hover:text-blue-800">
+                        {/* About Us */}
+                        <Link
+                            href="/About-Us"
+                            onClick={closeMenu}
+                            className="text-blue-600 transition hover:text-blue-800"
+                        >
                             About Us
                         </Link>
 
                         {/* Mobile Contact Dropdown */}
                         <button
+                            type="button"
                             onClick={() => setContactOpen(!contactOpen)}
                             className="flex items-center justify-between text-left text-blue-600 transition hover:text-blue-800"
+                            aria-expanded={contactOpen}
                         >
                             Contact
                             <span className="text-xs">
@@ -166,20 +245,14 @@ const Navbar = () => {
                                     rel="noopener noreferrer"
                                     className="flex items-center gap-3 py-2 text-gray-700 hover:text-green-600"
                                 >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 32 32"
-                                        className="h-6 w-6"
-                                        fill="#25D366"
-                                    >
-                                        <path d="M16 .5C7.44.5.5 7.44.5 16c0 2.73.71 5.41 2.06 7.78L.5 31.5l7.91-2.07A15.42 15.42 0 0 0 16 31.5c8.56 0 15.5-6.94 15.5-15.5S24.56.5 16 .5Zm0 28.36c-2.4 0-4.75-.65-6.79-1.88l-.49-.29-4.7 1.23 1.25-4.58-.32-.5A12.82 12.82 0 1 1 16 28.86Zm7.03-9.6c-.38-.19-2.24-1.1-2.59-1.22-.35-.13-.6-.19-.85.19-.25.38-.97 1.22-1.19 1.47-.22.25-.44.28-.82.09-.38-.19-1.6-.59-3.05-1.88-1.13-1.01-1.89-2.25-2.11-2.63-.22-.38-.02-.58.17-.77.19-.22.25-.38.38-.63.13-.25.06-.47-.03-.66-.09-.19-.85-2.05-1.16-2.81-.3-.73-.61-.63-.85-.64l-.72-.01c-.25 0-.66.09-1.01.47-.35.38-1.32 1.29-1.32 3.15s1.35 3.65 1.54 3.9c.19.25 2.66 4.06 6.45 5.69.9.39 1.6.62 2.15.79.9.29 1.71.25 2.35.15.72-.11 2.24-.91 2.56-1.79.32-.88.32-1.63.22-1.79-.1-.16-.35-.25-.73-.44Z" />
-                                    </svg>
+                                    <span className="text-xl">💬</span>
                                     WhatsApp
                                 </a>
 
                             </div>
                         )}
 
+                        {/* Mobile Enroll Button */}
                         <Link
                             href="/Contact"
                             onClick={closeMenu}
